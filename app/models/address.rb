@@ -1,3 +1,3 @@
 class Address < ApplicationRecord
-  belongs_to :school
+  has_one :school
 end

@@ -4,8 +4,7 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
       t.string :street
       t.string :neighborhood
       t.string :city
-      t.integer :number
-      t.references :school
+      t.string :number
 
       t.timestamps
     end

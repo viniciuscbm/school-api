@@ -19,31 +19,29 @@ ActiveRecord::Schema.define(version: 20171220145736) do
     t.string "street"
     t.string "neighborhood"
     t.string "city"
-    t.integer "number"
-    t.bigint "school_id"
+    t.string "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["school_id"], name: "index_addresses_on_school_id"
   end
 
   create_table "schools", force: :cascade do |t|
     t.string "name"
-    t.integer "students_count"
-    t.integer "teachers_count"
+    t.string "cnpj"
+    t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_schools_on_address_id"
   end
 
   create_table "schools_teachers", id: false, force: :cascade do |t|
     t.bigint "school_id", null: false
     t.bigint "teacher_id", null: false
     t.index ["school_id", "teacher_id"], name: "index_schools_teachers_on_school_id_and_teacher_id"
-    t.index ["teacher_id", "school_id"], name: "index_schools_teachers_on_teacher_id_and_school_id"
   end
 
   create_table "students", force: :cascade do |t|
     t.string "name"
-    t.integer "cpf"
+    t.string "cpf", limit: 14
     t.bigint "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
