@@ -1,3 +1,8 @@
 class Address < ApplicationRecord
-  has_one :school
+  
+  # Assossiations
+  belongs_to :school, optional: true
+
+  # Validations
+  validates :street, :neighborhood, :city, presence: true
 end

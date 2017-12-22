@@ -1,22 +1,22 @@
 namespace :dev do
-  desc "Recria o banco de dados e o popula com dados faker."
+  desc "Recreate the database and the population with faker data."
   task setup: :environment do
     
-    puts "Apagando o banco de dados..."
+    puts "Deleting the database..."
     %x(rails db:drop)
-    puts "Apagando o banco de dados... [SUCESSO]"
+    puts "Deleting the database... [SUCESSO]"
 
-    puts "Criando o banco de dados..."
+    puts "Creating the database..."
     %x(rails db:create)
-    puts "Criando o banco de dados... [SUCESSO]"
+    puts "Creating the database... [SUCESSO]"
 
-    puts "Criando as tabelas do banco de dados..."
+    puts "Creating the database tables..."
     %x(rails db:migrate)
-    puts "Criando as tabelas do banco de dados... [SUCESSO]"
+    puts "Creating the database tables... [SUCESSO]"
     
-    puts "Populando o banco de dados..."
+    puts "Populating the database..."
     %x(rails generete:data)
-    puts "Populando o banco de dados... [SUCESSO]"
+    puts "Populating the database... [SUCESSO]"
     
   end
 end

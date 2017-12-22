@@ -1,27 +1,27 @@
 namespace :generete do
-  desc "Popula o banco de dados com dados faker."
+  desc "Populate the database with faker data."
   task data: :environment do
     
-    # Cadastra 10 endereços.
+    # Register 10 schools with address.
     10.times do
+      School.create!(
+      name: Faker::Name.name,
+      cnpj: Faker::Number.number(14),
+      )
+    end
+    
+    # Register 10 addresses.
+    School.all.each do |school|
       Address.create!(
       street: Faker::Address.street_name,
       neighborhood: Faker::Address.community,
       city: Faker::Address.city,
       number: Faker::Address.building_number,
+      school: school
       )
     end
     
-    # Cadastra 10 escolas com endereço.
-    Address.all.each do |address|
-      School.create!(
-      name: Faker::Name.name,
-      cnpj: Faker::Number.number(14),
-      address: address 
-      )
-    end
-    
-    # Cadastra 10 estudantes em cada escola registada.
+    # Register 10 students in each registered school.
     School.all.each do |school|
       10.times do
         Student.create!(
@@ -32,15 +32,14 @@ namespace :generete do
       end
     end
     
-    # Cadastra 30 professores, 3 para cada escolas.
+    # Register 30 teachers, 3 for each school.
     School.all.each do |school|
       3.times do
         school.teachers.create!(attributes = { 
         name: Faker::Name.name,
         instruct: Faker::Educator.course
-      })
-    end
+        })
+      end
+    end  
   end
-  
-end
 end

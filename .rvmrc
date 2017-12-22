@@ -1,1 +1,2 @@
-rvm use 2.4.1@rails514 --create
+rvm use 2.4.1@rails514 --create do gem install mailcatcher
+rvm wrapper 2.4.1@rails514 --no-prefix mailcatcher catchmail
