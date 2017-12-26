@@ -66,3 +66,4 @@ Executanto a suíte de testes:
 Documentação do Projeto (Swagger):
 
   * Com o projeto em execução, acesse a seguinte URL pelo navegador (Browser): localhost:3000/documentation/v1
+  * O documento utilizado para gerar a documentação (swagger.yaml) está na raiz do projeto.
