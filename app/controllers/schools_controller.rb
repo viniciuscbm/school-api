@@ -8,8 +8,10 @@ class SchoolsController < ApplicationController
     render json: @schools
   end
   
+  # SchoolWorker is a BackgroudJob with Redis and Sidekiq.
   # GET /schools/1
   def show
+    SchoolWorker.perform_async(@school.id, @school.name, @school.cnpj)
     render json: @school
   end
   

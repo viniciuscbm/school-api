@@ -1,0 +1,434 @@
+swagger: '2.0'
+info:
+  description: 'School é uma API para gerenciar escolas, alunos, professores e endereços.'
+  version: 1.0.0
+  title: School API
+  contact:
+    name: Vinicius Camboim
+    url: 'https://github.com/viniciuscbm'
+host: 'localhost:3000'
+tags:
+  - name: School
+    description: Endpoints para gerenciar as escolas.
+  - name: Search
+    description: 'Endpoints pesquisa escolas, alunos e professores pelo nome.'
+schemes:
+  - http
+paths:
+  /schools:
+    get:
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: Lista todas as escolas.
+      description: >-
+        Esse endpoint retorna uma **lista com todas as escolas**, seus
+        estudantes, professores e endreços.
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+              address:
+                $ref: '#/definitions/Address'
+              students:
+                $ref: '#/definitions/Student'
+              teachers:
+                $ref: '#/definitions/Teacher'
+    post:
+      parameters:
+        - in: body
+          name: School
+          description: Cadastra uma escola e opcionalmente um endereço e vários alunos.
+          schema:
+            type: object
+            properties:
+              school:
+                $ref: '#/definitions/School'
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: Registra uma nova Escola.
+      description: >-
+        Cadastra uma nova escola, é possível cadastrar o endereço da escola e/ou
+        alunos também, porém para facilitar os testes aconselhaos cadastrar só a
+        escola.
+      responses:
+        '201':
+          description: Created.
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+              address:
+                $ref: '#/definitions/Address'
+              students:
+                $ref: '#/definitions/Student'
+              teachers:
+                $ref: '#/definitions/Teacher'
+    put:
+      parameters:
+        - in: body
+          name: School
+          description: >-
+            Atualiza uma escola e opcionalmente um endereço e vários alunos. **O
+            id da escola deve ser passado pela URL.**
+          schema:
+            type: object
+            properties:
+              school:
+                $ref: '#/definitions/SchoolPut'
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: >-
+        Atualiza todos os atributos de uma escola. O id da escola deve ser
+        passado pela URl
+      description: >-
+        Atualiza todos os atributos de uma escola, é possível atualizar o
+        endereço da escola e/ou alunos também, porém para facilitar os testes
+        aconselhaos atualizar só a escola. **O id da escola deve ser passado
+        pela URL.**
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+              address:
+                $ref: '#/definitions/Address'
+              students:
+                $ref: '#/definitions/Student'
+              teachers:
+                $ref: '#/definitions/Teacher'
+        '404':
+          description: School Not Found
+    patch:
+      parameters:
+        - in: body
+          name: School
+          description: >-
+            Atualiza um ou mais atributos de uma escola e opcionalmente um
+            endereço e vários alunos. **O id da escola deve ser passado pela
+            URL.**
+          schema:
+            type: object
+            properties:
+              school:
+                $ref: '#/definitions/SchoolPatch'
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: >-
+        Atualiza um ou mais atributos de uma Escola. O id da escola deve ser
+        passado pela URL.
+      description: >-
+        Atualiza um ou mais atributos de uma escola, é possível atualizar o
+        endereço da escola e/ou alunos também, porém para facilitar os testes
+        aconselhaos atualizar só a escola. **O id da escola deve ser passado
+        pela URL.**
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+              address:
+                $ref: '#/definitions/Address'
+              students:
+                $ref: '#/definitions/Student'
+              teachers:
+                $ref: '#/definitions/Teacher'
+        '404':
+          description: School Not Found
+  '/schools/{id}':
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          minimum: 1
+          description: Código de identificação da Escola.
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: Lista uma escola.
+      description: >-
+        Retorna **uma escola**, seus estudantes, professores e o endreço da
+        escola.
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+              address:
+                $ref: '#/definitions/Address'
+              students:
+                $ref: '#/definitions/Student'
+              teachers:
+                $ref: '#/definitions/Teacher'
+        '404':
+          description: School Not Found
+    delete:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          minimum: 1
+          description: Código de identificação da Escola.
+      tags:
+        - School
+      produces:
+        - application/json
+      summary: Apaga uma Escola.
+      description: Apaga uma Escola.
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: School Not Found
+  '/schools_search/{params}':
+    get:
+      parameters:
+        - in: path
+          name: params
+          required: true
+          type: string
+          description: Pesquisa escolas pelo nome.
+      tags:
+        - Search
+      produces:
+        - application/json
+      summary: Pesquisa escolas pelo nome e retorna uma lista de escolas.
+      description: Pesquisa escolas pelo nome e retorna uma lista de escolas.
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação da Escola.
+              name:
+                type: string
+                description: Nome da Escola
+              cnpj:
+                type: string
+                description: CNPJ da Escola.
+        '404':
+          description: School Not Found
+  '/students_search/{params}':
+    get:
+      parameters:
+        - in: path
+          name: params
+          required: true
+          type: string
+          description: Pesquisa **alunos** pelo nome.
+      tags:
+        - Search
+      produces:
+        - application/json
+      summary: Pesquisa alunos pelo nome e retorna uma lista de alunos.
+      description: Pesquisa **alunos** pelo nome e **retorna uma lista de alunos.**
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação do Aluno.
+              name:
+                type: string
+                description: Nome do Aluno
+              cpf:
+                type: string
+                description: CPF do Aluno.
+              school_id:
+                type: integer
+                description: Chave estrangeira da Escola.
+        '404':
+          description: Students Not Found
+  '/teachers_search/{params}':
+    get:
+      parameters:
+        - in: path
+          name: params
+          required: true
+          type: string
+          description: Pesquisa **professores** pelo nome.
+      tags:
+        - Search
+      produces:
+        - application/json
+      summary: Pesquisa professores pelo nome e retorna uma lista de professores.
+      description: >-
+        Pesquisa **professores** pelo nome e **retorna uma lista de
+        professores.**
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Código de indentificação do Professor.
+              name:
+                type: string
+                description: Nome do Professor.
+              instruct:
+                type: string
+                description: Curso ministrado pelo Professor.
+              school_id:
+                type: integer
+                description: Chave estrangeira da Escola.
+        '404':
+          description: Teachers Not Found
+definitions:
+  School:
+    type: object
+    required:
+      - name
+      - cnpj
+    properties:
+      name:
+        type: string
+        description: Nome da Escola.
+      cnpj:
+        type: string
+        description: CNPJ da Escola.
+  SchoolPut:
+    type: object
+    required:
+      - id
+      - name
+      - cnpj
+    properties:
+      id:
+        type: integer
+        description: Código da Escola
+      name:
+        type: string
+        description: Nome da Escola.
+      cnpj:
+        type: string
+        description: CNPJ da Escola.
+  SchoolPatch:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        description: Código da Escola
+      name:
+        type: string
+        description: Nome da Escola.
+      cnpj:
+        type: string
+        description: CNPJ da Escola.
+  Student:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Código de identificação do Aluno.
+      name:
+        type: string
+        description: Nome do Aluno.
+      cpf:
+        type: string
+        description: CPF do Aluno.
+      school_id:
+        type: integer
+        description: Chave estrangeira do relacionamento com a Escola.
+  Teacher:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Código de identificação do Professor.
+      name:
+        type: string
+        description: Nome do Professor.
+      instruct:
+        type: string
+        description: Curso ministrado pelo Professor.
+  Address:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Código de identificação do Endereço.
+      street:
+        type: string
+        description: Nome da rua (Logradouro).
+      neighborhood:
+        type: string
+        description: Nome do Bairro.
+      city:
+        type: string
+        description: Nome do Cidade.
+      number:
+        type: string
+        description: Número do imóvel.
+      school_id:
+        type: integer
+        description: Chave estrangeira do relacionamento com a Escola.

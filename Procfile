@@ -1,2 +1,2 @@
-web: rails s -b 0.0.0.0 -p 3000
+web: rails s
 sidekiq: bundle exec sidekiq -q default -q mailers
