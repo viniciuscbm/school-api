@@ -13,13 +13,13 @@ Tecnologias utilizadas e suas versões:
 * FactoryBot 4.8.2
 * Ruby Version Manager (RVM) 1.29.3
 
-Configurando o projeto para rodar localmente:
+Configurando o projeto para rodar localmente.
 
-Crie uma pasta para o projeto e o clone:
+1 - Crie uma pasta para o projeto e o clone:
 
   * git clone https://github.com/viniciuscbm/school-api.git
 
-Instalação e configuração do Redis:
+2 - Instalação e configuração do Redis:
 
   Se o redis não estiver instalado na máquina, siga os passos abaixo de instalação.
 
@@ -37,22 +37,22 @@ Instalação e configuração do Redis:
   * 2 - sudo kill -9 (Código cópiado)
   * 3 - redis-server & (Start redis in Backgroud)
 
-Acesse a pasta do projeto pelo terminal e execute um "bundle install":
+3 - Acesse a pasta do projeto pelo terminal e execute um "bundle install":
 
   * cd school-api
   * bundle install
 
-Acesse a pasta do projeto e configure o banco de dados:
+4 - Acesse a pasta do projeto e configure o banco de dados:
 
   * Acesse school-api/config e renomei "database.yml.example" para "database.yml".
   * Dentro do arquivo "database.yml" coloque o login e a senha do PostgreSQL, da sua máquina local.
 
-Criando e populando o banco de dados:
+5 - Criando e populando o banco de dados:
 
   * Dentro da pasta do projeto execute o comando: rails dev:setup
   * "rails dev:setup" apaga, cria, insere tabelas e popula o banco dados com dados faker.
 
-Rodando o projeto localmente:
+6 - Rodando o projeto localmente:
 
   * Dentro da pasta do projeto execute o comando: foreman start
   * "foreman start" ira subir o servidor local (Puma) e startar o serviço do Sidekiq
